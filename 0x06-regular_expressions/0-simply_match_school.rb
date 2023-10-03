@@ -5,10 +5,10 @@ else
   input = ARGV[0]
 
   pattern = /School/
-  results = input.match(pattern)
+  results = input.scan(pattern)
   
   if results
-    puts "#{results}"
+    puts results.join
   else
     puts ""
   end
