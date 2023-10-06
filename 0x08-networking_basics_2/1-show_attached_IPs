@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# Display all active IPv4 add
+#Use 'ip' command to list all network interfaces and their IP addresses,
+# filter for IPv4 addresses, and format the output using 'awk'.
 
 ip -4 -o addr show | awl "Pprint $4}" | cut -d "/" -f 1
