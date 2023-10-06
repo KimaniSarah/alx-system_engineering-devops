@@ -3,4 +3,3 @@
 # Use 'ip' command to list all network interfaces and their IP addresses,
 # filter for IPv4 addresses, and format the output using 'awk'.
 ip -4 addr | awk '/inet / {print $2}' | cut -d'/' -f1
-
