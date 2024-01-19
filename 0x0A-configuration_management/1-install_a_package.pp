@@ -1,9 +1,5 @@
-# 0-create_a_file.pp
-
-file { '/tmp/school':
-  ensure  => 'file',
-  content => 'I love Puppet',
-  mode    => '0744',
-  owner   => 'www-data',
-  group   => 'www-data',
+# puppet declarative script to install flask from pip3.
+package { 'flask':
+  ensure   => '2.1.0',
+  provider => 'pip3',
 }
