@@ -13,7 +13,6 @@ subdomain="$2"
 
 # Default subdomains to check
 subdomains=("www" "lb-01" "web-01" "web-02")
-if [ "$#" -gt 1 ]; then
     # Loop through subdomains
     for sub in "${subdomains[@]}"; do
         # Use dig command to get DNS information and awk for parsing
@@ -23,7 +22,6 @@ if [ "$#" -gt 1 ]; then
         # Display information
         display_info "$sub.$domain" "$record_type" "$destination"
     done
-else
     # Check if a specific subdomain is provided
     if [ -n "$subdomain" ]; then
         # Use dig command to get DNS information for the specific subdomain
@@ -33,5 +31,4 @@ else
         # Display information for the specific subdomain
         display_info "$subdomain.$domain" "$record_type" "$destination"
     fi
-fi
 
