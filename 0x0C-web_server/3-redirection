@@ -24,7 +24,7 @@ printf %s "server {
 }
 " > /etc/nginx/sites-available/default
 
-# Configure a new server block for redirection
+# Configure a new server block for redirection.
 echo "server {
     listen 80;
     listen [::]:80;
@@ -35,7 +35,14 @@ echo "server {
     index index.html index.htm index.nginx-debian.html;
 
     location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+    }
+
+    # Include error_page configuration
+    error_page 404 /404.html;
+    location = /404.html {
+        root /usr/share/nginx/html;
+        internal;
     }
 }" | sudo tee /etc/nginx/sites-available/redirect
 
