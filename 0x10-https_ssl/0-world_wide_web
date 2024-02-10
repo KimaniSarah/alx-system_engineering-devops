@@ -1,24 +1,36 @@
 #!/usr/bin/env bash
-# DOUBLE THE NUMBER OF WEBSERVERS
-# Usage: ./1-world_wide_web <domain> <subdomain>
-
-# Function to retrieve and display information about a subdomain
-
-domain_information () {
-    # PERFORM DNS LOOKUP FOR THE SUBDOMAIN UNDER THE SPECIFIED DOMAIN
-    line=$(dig "$2", "$1" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | tr '\n' ' ')
-    # EXTRACT RELEVANT INFORAMTION AND PRINT IT
-    echo "$2 $line" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
+# Function to display subdomain information
+display_info() {
+    local subdomain="$1"
+    local record_type="$2"
+    local destination="$3"
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
 }
 
-# CHECK THE NUMBER OF ARGUMENTS PASSED TO THE SCRIPT
-if [ "$#" == 1 ]
-then
-    domain_information "$1" "www"
-    domain_information "$1" "lb-01"
-    domain_information "$1" "web-01"
-    domain_information "$1" "web-02"
-elif [ "$#" == 2 ]
-then
-    domain_information "$1" "$2"
+# Domain and subdomain information
+domain="$1"
+subdomain="$2"
+
+# Default subdomains to check
+subdomains=("www" "lb-01" "web-01" "web-02")
+
+# Loop through subdomains
+for sub in "${subdomains[@]}"; do
+    # Use dig command to get DNS information and awk for parsing
+    record_type=$(dig +short -t CNAME "$sub.$domain" | awk '/CNAME/{print $1}')
+    destination=$(dig +short "$sub.$domain" | awk '{print $1}')
+
+    # Display information
+    display_info "$sub.$domain" "$record_type" "$destination"
+done
+
+# Check if a specific subdomain is provided
+if [ -n "$subdomain" ]; then
+    # Use dig command to get DNS information for the specific subdomain
+    record_type=$(dig +short -t CNAME "$subdomain.$domain" | awk '/CNAME/{print $1}')
+    destination=$(dig +short "$subdomain.$domain" | awk '{print $1}')
+
+    # Display information for the specific subdomain
+    display_info "$subdomain.$domain" "$record_type" "$destination"
 fi
+
