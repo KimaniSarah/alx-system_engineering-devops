@@ -4,7 +4,7 @@ display_info() {
     local subdomain="$1"
     local record_type="$2"
     local destination="$3"
-    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+    echo "The subdomain $subdomain is A $record_type record and points to $destination"
 }
 
 # Domain and subdomain information
@@ -21,7 +21,7 @@ if [ "$#" == 1 ]; then
         destination=$(dig +short -t A "$sub.$domain" | awk 'NR==1{print $1}')
 
         # Display information
-        display_info "$sub.$domain" "$record_type" "$destination"
+        display_info "$sub" "$record_type" "$destination"
     done
 else
     # Check if a specific subdomain is provided
@@ -31,6 +31,6 @@ else
         destination=$(dig +short -t A "$subdomain.$domain" | awk 'NR==1{print $1}')
 
         # Display information for the specific subdomain
-        display_info "$subdomain.$domain" "$record_type" "$destination"
+        display_info "$subdomain" "$record_type" "$destination"
     fi
 fi
