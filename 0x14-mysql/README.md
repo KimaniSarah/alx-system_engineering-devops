@@ -4,7 +4,7 @@ This repository contains scripts and configurations for setting up MySQL replica
 Contents:
 User and Permissions Setup:
 
-To grant access for checking replication status, the script 1-mysql_user_setup.sh creates a MySQL user named holberton_user with the appropriate permissions on both web-01 and web-02.
+Grant access for checking replication status, the script 1-mysql_user_setup.sh creates a MySQL user named holberton_user with the appropriate permissions on both web-01 and web-02.
 Additionally, SSH keys are added to both servers.
 Database and Table Creation:
 
