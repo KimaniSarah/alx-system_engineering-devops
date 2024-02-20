@@ -25,7 +25,7 @@ def return_todo(employee_id):
 
     co_len = len(complete)
     t_len = len(todo_data)
-    print(f"Employee {id_data['name']} is done with tasks ({co_len}/{t_len}):")
+    print(f"Employee {id_data['name']} is done with tasks({co_len}/{t_len}):")
     for tasks in complete:
         print(f"\t{tasks}")
 
