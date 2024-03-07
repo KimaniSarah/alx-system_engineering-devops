@@ -1,0 +1,24 @@
+#Update Package Lists
+sudo apt update
+
+#Install UFW
+sudo apt install ufw
+
+#Deny incoming and allow outgoing traffic.
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+#Allow incoming SSH traffic on port 22.
+sudo ufw allow 22/tcp
+
+#Allow incoming HTTPS (SSL) traffic on port 443.
+sudo ufw allow 443/tcp
+
+#Allow incoming HTTP traffic on port 80.
+sudo ufw allow 80/tcp
+
+#Enable UFW to activate the configured rules.
+sudo ufw enable
+
+#Verify the status to ensure that UFW is active and configured correctly.
+sudo ufw status
